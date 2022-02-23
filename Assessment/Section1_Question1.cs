@@ -8,8 +8,8 @@ namespace Assessment
     {
         static void Main(string[] args)
         {
-            int n = 10; // change variable here
-            int nmultiple = 1;
+            int n = 100; // change variable here
+            System.Numerics.BigInteger nmultiple = 1;
             int sum = 0;
 
             for (int i = n; i > 0; i--)
@@ -26,7 +26,7 @@ namespace Assessment
                 Console.WriteLine(digit);
             }
 
-            Console.WriteLine("Sum of digits : " + sum.ToString()); 
+            Console.WriteLine("Sum of digits : " + sum.ToString());
         }
     }
 }
