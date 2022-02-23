@@ -26,7 +26,7 @@ namespace Assessment
                 Console.WriteLine(digit);
             }
 
-            Console.WriteLine("Sum of digits : " + sum.ToString());
+            Console.WriteLine("Sum of digits : " + sum.ToString()); 
         }
     }
 }
