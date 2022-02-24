@@ -7,26 +7,38 @@ namespace Assessment
     class Section1_Question1
     {
         static void Main(string[] args)
-        {
-            int n = 100; // change variable here
-            System.Numerics.BigInteger nmultiple = 1;
+        { 
+            int n = 100;  // change variable here
+            int[] arr = new int[20000];
+            int l = 1;
+            int temp = 0;
+            arr[0] = 1;
+
+            for (int i = 2; i <= n; i++)
+            { 
+                for (int j = 0; j < l; j++)
+                {
+                    int k = temp + i * arr[j];
+                    arr[j] = k % 10;
+                    temp = k / 10; 
+                }
+                 
+                while (temp > 0)
+                {
+                    arr[l++] = temp % 10;
+                    temp = temp / 10;
+                }
+            }
+
             int sum = 0;
 
-            for (int i = n; i > 0; i--)
+            for (int i = l - 1; i > -1; i--)
             {
-                nmultiple = nmultiple * i;
+                Console.Write(arr[i]);
+                sum += arr[i];
             }
 
-            Console.WriteLine(nmultiple.ToString());
-
-            for (int i = 0; i < nmultiple.ToString().Length; i++)
-            {
-                int digit = Convert.ToInt32(nmultiple.ToString().Substring(i, 1));
-                sum += digit;
-                Console.WriteLine(digit);
-            }
-
-            Console.WriteLine("Sum of digits : " + sum.ToString());
+            Console.WriteLine("\n\nSum of digits : " + sum);
         }
     }
 }
