@@ -1,82 +1,89 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Assessment
 {
     public class Account
     {
-        protected const int accountAllocation = 30;
-        protected string[] listOfAccount = { "", "", "" };
-        protected int position;
+        private static string[] listOfAccount = { "", "", "" };
+
+        protected string ID;
+        protected string NAME;
+        protected double BALANCE;
+        protected int Position;
+
+        public string pID { get => ID; set => ID = value; }
+
+        public string pNAME { get => NAME; set => NAME = value; }
+
+        public double pBALANCE { get => BALANCE; set => BALANCE = value; }
+
+        public int pPosition { get => Position; set => Position = value; }
 
         public Account()
         {
 
         }
 
-        public Account(string id, string name, double balance)
+        public Account(string id)
         {
-            for (int i = 0; i < accountAllocation; i++)
+            for (int i = 0; i < listOfAccount.Length; i++)
+            {
+                string[] account = listOfAccount[i].Split('|');
+                if (account[0] == id)
+                {
+                    ID = account[0];
+                    NAME = account[1];
+                    BALANCE = Convert.ToDouble(account[2]);
+                    Position = i;
+
+                    return;
+                }
+            }
+
+            ID = string.Empty;
+        }
+
+        public bool isExists()
+        {
+            if (ID == string.Empty)
+            {
+                return false;
+            }
+            else return true;
+        }
+
+        public void saveNewAccount()
+        {
+            for (int i = 0; i < listOfAccount.Length; i++)
             {
                 if (listOfAccount[i] == "")
                 {
-                    listOfAccount[i] = id + "|" + name + "|" + balance;
+                    listOfAccount[i] = ID + "|" + NAME + "|" + BALANCE;
                     return;
                 }
             }
         }
 
-        public void deposit(string id, double amount)
+        public void deposit(double amount)
         {
-            string[] account = getSpecifiedAccountInfo(id).Split('|');
-            string name = account[1];
-            double balance = Convert.ToInt32(account[2]);
-
-            balance += amount;
-
-            listOfAccount[position] = id + "|" + name + "|" + balance;
+            BALANCE += amount;
+            updateAccount();
         }
 
-        public void withdraw(string id, double amount)
+        public void withdraw(double amount)
         {
-            string[] account = getSpecifiedAccountInfo(id).Split('|');
-            string name = account[1];
-            double balance = Convert.ToInt32(account[2]);
-
-            balance -= amount;
-
-            listOfAccount[position] = id + "|" + name + "|" + balance;
+            BALANCE -= amount;
+            updateAccount();
         }
 
-        public string getInfo(string id)
+        public void updateAccount()
         {
-            string[] account = getSpecifiedAccountInfo(id).Split('|');
-            string name = account[1];
-            double balance = Convert.ToInt32(account[2]);
-
-            return name + "'s account. Balance: " + balance;
+            listOfAccount[Position] = ID + "|" + NAME + "|" + BALANCE;
         }
 
-        public string getSpecifiedAccountInfo(string id)
+        public string getInfo()
         {
-            string returnedAccount = string.Empty;
-            for (int i = 0; i < accountAllocation; i++)
-            {
-                if (listOfAccount[i] != "")
-                {
-                    string[] account = listOfAccount[i].Split('|');
-                    if (account[0] == id)
-                    {
-                        position = i;
-                        returnedAccount = listOfAccount[i];
-                        goto endsFunction;
-                    }
-                }
-            }
-
-        endsFunction:
-            return returnedAccount;
+            return NAME + "'s account. Balance: " + BALANCE;
         }
     }
 }
