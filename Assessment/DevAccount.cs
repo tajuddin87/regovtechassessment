@@ -11,9 +11,9 @@ namespace Assessment
 
         }
 
-        public DevAccount(string id)
+        public DevAccount(string id) : base(id)
         {
-            new Account(id);
+
         }
 
         public double getBalance()
